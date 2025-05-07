@@ -53,7 +53,12 @@ On Windows: `%APPDATA%/Claude/claude_desktop_config.json`
 {
   "mcpServers": {
     "xinghuo-mcp-server": {
-      "command": "/path/to/xinghuo-mcp-server/build/index.js"
+      "command": "node",
+      "args": [
+        "path\\xinghuo-mcp-server\\build\\index.js",
+        "http://test.bifcore.bitfactory.cn"
+      ],
+      "transportType": "stdio"
     }
   }
 }

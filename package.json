@@ -1,28 +1,27 @@
 {
   "name": "xinghuo-mcp-server",
-  "version": "0.1.4",
+  "version": "1.0.0",
   "description": "A Model Context Protocol server provides access to the Xinghuo BIF Blockchain Test Network, enabling users to call various tools and functions such as get_block_number, get_block_header, get_block_transactions, and get_transaction_info to interact with the blockchain efficiently and retrieve specific data without directly interfacing with blockchain nodes.",
-  "private": false,
+  "main": "index.js",
   "type": "module",
   "bin": {
     "xinghuo-mcp-server": "./build/index.js"
   },
+  "scripts": {
+    "build": "tsc"
+  },
   "files": [
     "build"
   ],
-  "scripts": {
-    "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
-    "prepare": "npm run build",
-    "watch": "tsc --watch",
-    "inspector": "npx @modelcontextprotocol/inspector build/index.js"
-  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "@modelcontextprotocol/sdk": "0.6.0",
     "bifcore-sdk-nodejs": "^1.0.9",
-    "rxjs": "^7.8.2"
+    "@modelcontextprotocol/sdk": "^1.11.0"
   },
   "devDependencies": {
-    "@types/node": "^20.11.24",
-    "typescript": "^5.3.3"
+    "@types/node": "^22.15.14",
+    "typescript": "^5.8.3"
   }
 }

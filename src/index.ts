@@ -18,8 +18,16 @@ import {
 
 import BIFCoreSDK from 'bifcore-sdk-nodejs'
 
+const args = process.argv.slice(2);
+if (args.length === 0) {
+  console.error("Please provide a database URL as a command-line argument");
+  process.exit(1);
+}
+
+const hostUrl = args[0];
+
 const sdk = new BIFCoreSDK({
-  host: 'http://test.bifcore.bitfactory.cn'
+  host: hostUrl
 });
 
 
@@ -103,25 +111,49 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
   switch (request.params.name) {
     case 'get_block_number':
       const height = await sdk.block.getBlockNumber();
-      return { result: { height: height.toString() } };
+      return { 
+        content: [{
+          type: "text",
+          text: JSON.stringify({
+             height
+          })
+        }]
+      };
 
     case 'get_block_header':
       const header = await sdk.block.getBlockLatestInfo({
         blockNumber: args?.blockNumber
       });
-      return { result: { header } };
+      return { 
+        content: [{
+          type: "text",
+          text: JSON.stringify({
+            header
+         })
+        }]
+      };
 
     case 'get_block_transactions':
       const transactions = await sdk.block.getTransactions({
         blockNumber: args?.blockNumber
       });
-      return { result: { transactions } };
+      return {  content: [{
+        type: "text",
+        text: JSON.stringify({
+          transactions
+       })
+      }]};
 
     case 'get_transaction_info':
       const transaction = await sdk.transaction.getTransactionInfo({
         hash: args?.hash
       });
-      return { result: { transaction } };
+      return { content: [{
+        type: "text",
+        text: JSON.stringify({
+          transaction
+       })
+      }]};
 
     default:
       throw new Error(`Unknown tool: ${name}`);
